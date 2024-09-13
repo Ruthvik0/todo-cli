@@ -1,4 +1,42 @@
 {
-  "todos": [],
-  "categories": []
+  "todos": [
+    {
+      "task": "Go To run",
+      "createdAt": "12-12-2007",
+      "completedAt": "12-12-2008",
+      "category": "personal"
+    },
+    {
+      "task": "Go To run",
+      "createdAt": "12-12-2012",
+      "completedAt": "12-12-2012",
+      "category": "work"
+    },
+    {
+      "task": "Go To run",
+      "createdAt": "12-12-2012",
+      "completedAt": null,
+      "category": "immediate"
+    },
+    {
+      "task": "To go to market",
+      "category": "personal",
+      "createdAt": "2024-09-13T10:37:05.918Z",
+      "completedAt": null
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "work"
+    },
+    {
+      "id": 2,
+      "name": "immediate"
+    },
+    {
+      "id": 3,
+      "name": "personal"
+    }
+  ]
 }

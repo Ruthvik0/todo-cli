@@ -1,5 +1,6 @@
-import { input } from "@inquirer/prompts";
+import { input, select, Separator } from "@inquirer/prompts";
 import { Command } from "commander";
+import fs from "node:fs";
 
 type Todo = {
   task: String;
@@ -12,8 +13,24 @@ type Category = {
   name: String;
 };
 
-const todoList: Todo[] = [];
-const categoryList: Category[] = [];
+type DBFile = {
+  todos: Todo[];
+  categories: Category[];
+};
+
+const dbFilePath: string = "./src/db.json";
+
+let todoList: Todo[] = [];
+let categoryList: Category[] = [];
+
+try {
+  const data = fs.readFileSync(dbFilePath, "utf8");
+  const db = JSON.parse(data);
+  todoList = db.todos;
+  categoryList = db.categories;
+} catch (err) {
+  console.error(err);
+}
 
 const program = new Command("Todo");
 
@@ -28,8 +45,22 @@ program
   .command("add")
   .description("Add new todo")
   .action(async () => {
-    const answer = await input({ message: "What are you planning?" });
-    console.log(answer);
+    const task: string = await input({ message: "What are you planning?" });
+    const categoryChoices: any = categoryList.map(
+      (c) => ({ name: c.name, value: c.name.toLowerCase() }),
+      new Separator()
+    );
+    const category: string = await select({
+      message: "What would be the category?",
+      choices: categoryChoices,
+    });
+    todoList.push({ task, category, createdAt: new Date(), completedAt: null });
+    const jsonData: DBFile = { todos: todoList, categories: categoryList };
+    try {
+      fs.writeFileSync(dbFilePath, JSON.stringify(jsonData, null, 2));
+    } catch (err) {
+      console.error(err);
+    }
   });
 
 program.parse(process.argv);
