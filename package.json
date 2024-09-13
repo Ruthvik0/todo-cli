@@ -4,7 +4,7 @@
   "description": "CLI application for TODO's",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build && node ./dist/index.js add",
+    "dev": "npm run build && node ./dist/index.js add -t Ruthvik2",
     "build": "tsc"
   },
   "keywords": [],
