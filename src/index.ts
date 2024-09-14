@@ -1,44 +1,9 @@
-import { input, select, Separator } from "@inquirer/prompts";
+import * as p from "@clack/prompts";
+import color from "picocolors";
 import { Command } from "commander";
-import fs from "node:fs";
-
-type Todo = {
-  task: String;
-  createdAt: Date;
-  completedAt: Date | null;
-  category: String;
-};
-
-type Category = {
-  name: String;
-};
-
-type DBFile = {
-  todos: Todo[];
-  categories: Category[];
-};
-
-const dbFilePath: string = "./src/db.json";
-
-let todoList: Todo[] = [];
-let categoryList: Category[] = [];
-
-try {
-  const data = fs.readFileSync(dbFilePath, "utf8");
-  const db = JSON.parse(data);
-  todoList = db.todos;
-  categoryList = db.categories;
-} catch (err) {
-  console.error(err);
-}
-
-const writeToDBJSON = (jsonData: DBFile): void => {
-  try {
-    fs.writeFileSync(dbFilePath, JSON.stringify(jsonData, null, 2));
-  } catch (err) {
-    console.error(err);
-  }
-};
+import { addTodo, getTodos, getCategories } from "./dbRepository";
+import { Todo } from "./types";
+import { setTimeout } from "node:timers/promises";
 
 const program = new Command("Todo");
 
@@ -46,42 +11,75 @@ program
   .name("Todo-cli")
   .description("Manage your Todo's from CLI")
   .action(() => {
-    console.log(todoList);
+    console.log(getTodos());
   });
 
 program
   .command("add")
   .description("Add new todo")
   .option("-t, --task <name>", "task description")
-  .option("-c --category <category>", "category type", "personal")
+  .option("-c, --category <category>", "category type", "personal")
   .action(async (options) => {
     if (options.task && options.category) {
-      todoList.push({
+      const newTodo: Todo = {
         task: options.task,
         category: options.category,
         createdAt: new Date(),
         completedAt: null,
-      });
-      const jsonData: DBFile = { todos: todoList, categories: categoryList };
-      writeToDBJSON(jsonData);
+        completed: false,
+      };
+      addTodo(newTodo);
+
+      console.log(color.green("Todo Added Successfully"));
+      console.log(getTodos());
     } else {
-      const task: string = await input({ message: "What are you planning?" });
-      const categoryChoices: any = categoryList.map(
-        (c) => ({ name: c.name, value: c.name.toLowerCase() }),
-        new Separator()
+      console.clear();
+      await setTimeout(1000);
+
+      p.intro(`${color.bgCyan(color.black("Add new todo"))}`);
+
+      const todo = await p.group(
+        {
+          task: () =>
+            p.text({
+              message: "What are you planning?",
+              placeholder: "Go get milk",
+              validate: (value) => {
+                if (!value) return "Please enter a task name.";
+                if (value.length < 3)
+                  return "Task name should be at least 3 characters";
+              },
+            }),
+          category: () =>
+            p.select({
+              message: "What would be the category?",
+              initialValue: "personal",
+              options: getCategories().map((c) => ({
+                label: c.name,
+                value: c.name.toLowerCase(),
+              })),
+            }),
+        },
+        {
+          onCancel: () => {
+            p.cancel("Operation cancelled.");
+            process.exit(0);
+          },
+        }
       );
-      const category: string = await select({
-        message: "What would be the category?",
-        choices: categoryChoices,
-      });
-      todoList.push({
-        task,
-        category,
+
+      const newTodo: Todo = {
+        task: todo.task,
+        category: todo.category,
         createdAt: new Date(),
         completedAt: null,
-      });
-      const jsonData: DBFile = { todos: todoList, categories: categoryList };
-      writeToDBJSON(jsonData);
+        completed: false,
+      };
+
+      addTodo(newTodo);
+
+      p.note("Todo Added Successfully");
+      p.outro(getTodos().toString());
     }
   });
 

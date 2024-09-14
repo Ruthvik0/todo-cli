@@ -4,16 +4,17 @@
   "description": "CLI application for TODO's",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build && node ./dist/index.js add -t Ruthvik2",
+    "dev": "npm run build && node ./dist/index.js add",
     "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ruthvik.Alladi",
   "license": "ISC",
   "dependencies": {
-    "@inquirer/prompts": "^5.5.0",
+    "@clack/prompts": "^0.7.0",
     "cli-table": "^0.3.11",
     "commander": "^12.1.0",
+    "picocolors": "^1.1.0",
     "typescript": "^5.6.2"
   },
   "devDependencies": {

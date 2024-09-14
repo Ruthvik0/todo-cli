@@ -41,6 +41,48 @@
       "category": "personal",
       "createdAt": "2024-09-13T11:53:03.613Z",
       "completedAt": null
+    },
+    {
+      "task": "Ruthvik2",
+      "category": "personal",
+      "createdAt": "2024-09-14T07:42:53.320Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Ruthvik2",
+      "category": "personal",
+      "createdAt": "2024-09-14T08:04:32.075Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Ruthvik2",
+      "category": "personal",
+      "createdAt": "2024-09-14T08:04:59.418Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Ruthvik2",
+      "category": "personal",
+      "createdAt": "2024-09-14T08:05:22.094Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Ruthvik2",
+      "category": "personal",
+      "createdAt": "2024-09-14T08:06:16.604Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Go to mall",
+      "category": "immediate",
+      "createdAt": "2024-09-14T08:06:57.819Z",
+      "completedAt": null,
+      "completed": false
     }
   ],
   "categories": [
