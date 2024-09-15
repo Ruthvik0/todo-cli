@@ -2,7 +2,6 @@ import { program } from "commander";
 import { Todo } from "../types";
 import { addTodo, getCategories, getTodos } from "../dbRepository";
 import color from "@colors/colors";
-import { setTimeout } from "node:timers/promises";
 import * as p from "@clack/prompts";
 import { getTodosTable } from "../ui";
 
@@ -27,7 +26,6 @@ export const addCommand = program
       console.log(getTodosTable(getTodos()));
     } else {
       console.clear();
-      await setTimeout(1000);
 
       p.intro(`${color.bgCyan(color.black("Add new todo"))}`);
 

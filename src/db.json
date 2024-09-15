@@ -15,14 +15,6 @@
       "createdAt": "2024-09-13T10:37:05.918Z",
       "completedAt": null,
       "completed": false
-    },
-    {
-      "id": 3,
-      "task": "To go to school",
-      "category": "personal",
-      "createdAt": "2024-09-13T10:37:05.918Z",
-      "completedAt": null,
-      "completed": false
     }
   ],
   "categories": [

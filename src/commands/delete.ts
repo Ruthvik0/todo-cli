@@ -2,7 +2,6 @@ import color from "@colors/colors";
 import { program } from "commander";
 import { deleteTodo, getTodos } from "../dbRepository";
 import { getTodosTable } from "../ui";
-import { setTimeout } from "node:timers/promises";
 import * as p from "@clack/prompts";
 
 export const deleteCommand = program
