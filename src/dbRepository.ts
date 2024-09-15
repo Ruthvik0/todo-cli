@@ -1,7 +1,7 @@
 // dbRepository.ts
 
 import fs from 'node:fs';
-import { Category, DBFile, Todo } from './types';
+import { Category, DBFile, Todo, TodoPredicate } from './types';
 
 const dbFilePath: string = "./src/db.json";
 
@@ -23,8 +23,11 @@ const writeToDB = (jsonData: DBFile): void => {
   }
 };
 
-export const getTodos = (): Todo[] => {
+export const getTodos = (predicate?: TodoPredicate): Todo[] => {
   const db = readFromDB();
+  if(predicate){
+    return db.todos.filter(predicate)
+  }
   return db.todos;
 };
 

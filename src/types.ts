@@ -11,6 +11,8 @@ export type Category = {
 };
 
 export type DBFile = {
-    todos: Todo[];
-    categories: Category[];
-  };
+  todos: Todo[];
+  categories: Category[];
+};
+
+export type TodoPredicate = (todo: Todo) => boolean;

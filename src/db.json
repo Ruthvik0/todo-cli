@@ -4,76 +4,13 @@
       "task": "Go To run",
       "createdAt": "12-12-2007",
       "completedAt": "12-12-2008",
-      "category": "personal"
-    },
-    {
-      "task": "Go To run",
-      "createdAt": "12-12-2012",
-      "completedAt": "12-12-2012",
-      "category": "work"
-    },
-    {
-      "task": "Go To run",
-      "createdAt": "12-12-2012",
-      "completedAt": null,
-      "category": "immediate"
+      "category": "personal",
+      "completed": true
     },
     {
       "task": "To go to market",
       "category": "personal",
       "createdAt": "2024-09-13T10:37:05.918Z",
-      "completedAt": null
-    },
-    {
-      "task": "Ruthvik",
-      "category": "immediate",
-      "createdAt": "2024-09-13T11:50:37.637Z",
-      "completedAt": null
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-13T11:52:44.829Z",
-      "completedAt": null
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-13T11:53:03.613Z",
-      "completedAt": null
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-14T07:42:53.320Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-14T08:04:32.075Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-14T08:04:59.418Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-14T08:05:22.094Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "Ruthvik2",
-      "category": "personal",
-      "createdAt": "2024-09-14T08:06:16.604Z",
       "completedAt": null,
       "completed": false
     },
@@ -81,6 +18,20 @@
       "task": "Go to mall",
       "category": "immediate",
       "createdAt": "2024-09-14T08:06:57.819Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "go get milk",
+      "category": "personal",
+      "createdAt": "2024-09-14T08:42:17.137Z",
+      "completedAt": null,
+      "completed": false
+    },
+    {
+      "task": "Go run",
+      "category": "work",
+      "createdAt": "2024-09-14T08:44:03.241Z",
       "completedAt": null,
       "completed": false
     }
