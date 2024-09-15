@@ -4,24 +4,16 @@
       "id": 1,
       "task": "Go To run",
       "createdAt": "12-12-2007",
-      "completedAt": "12-12-2008",
+      "completedAt": "15-09-2024 19:21",
       "category": "personal",
       "completed": true
     },
     {
       "id": 2,
-      "task": "To go to market",
+      "task": "Wassup boys",
       "category": "personal",
-      "createdAt": "2024-09-13T10:37:05.918Z",
-      "completedAt": "2024-09-15T04:35:26.659Z",
-      "completed": true
-    },
-    {
-      "id": 3,
-      "task": "To go to school",
-      "category": "personal",
-      "createdAt": "2024-09-13T10:37:05.918Z",
-      "completedAt": "2024-09-15T04:35:26.663Z",
+      "createdAt": "15-09-2024 19:21",
+      "completedAt": "15-09-2024 19:23",
       "completed": true
     }
   ],

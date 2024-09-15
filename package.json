@@ -2,22 +2,31 @@
   "name": "todo-cli",
   "version": "1.0.0",
   "description": "CLI application for TODO's",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
   "scripts": {
-    "dev": "npm run build && node ./dist/index.js complete",
-    "build": "tsc"
+    "dev": "npm run build && node ./dist/index.js",
+    "build": "tsc",
+    "pkg": "pkg ."
   },
   "keywords": [],
-  "author": "Ruthvik.Alladi",
+  "author": "Rut",
   "license": "ISC",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@colors/colors": "^1.6.0",
     "cli-table3": "^0.6.5",
     "commander": "^12.1.0",
+    "dayjs": "^1.11.13",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
     "@types/node": "^22.5.4"
+  },
+  "pkg": {
+    "targets": [
+      "node14-win-x64"
+    ],
+    "output": "build/todo"
   }
 }

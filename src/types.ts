@@ -1,10 +1,10 @@
 export type Todo = {
   id : number | null;
   task: string;
-  createdAt: Date;
-  completedAt: Date | null;
+  createdAt: string;
+  completedAt: string | null;
   category: string;
-  completed: Boolean;
+  completed: boolean;
 };
 
 export type Category = {

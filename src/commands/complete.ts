@@ -1,6 +1,6 @@
 import color from "@colors/colors";
 import { program } from "commander";
-import { completeTodo, deleteTodo, getTodos } from "../dbRepository";
+import { completeTodo, getTodos } from "../dbRepository";
 import { getTodosTable } from "../ui";
 import * as p from "@clack/prompts";
 
@@ -9,11 +9,11 @@ export const completeCommand = program
   .description("Mark todos as complete by ID(s)")
   .option("-i, --id <numbers...>", "Mark todos with specified IDs as complete")
   .action(async (options) => {
-    if (options.task) {
+    if (options.id) {
       const ids: number[] = options.id.map((value: string) => {
         const numberValue = Number(value);
         if (isNaN(numberValue)) {
-          console.log(color.red(`Invalid ID: ${value} is not a number.`));
+          console.log(color.red(`Invalid ID: ${options.id} is not a number.`));
           process.exit(0);
         }
         return numberValue;

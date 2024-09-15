@@ -1,12 +1,37 @@
 import fs from "node:fs";
 import { Category, DBFile, Todo, TodoPredicate } from "./types";
 import color from "@colors/colors";
+import { date } from "./utils";
+import path from "node:path";
 
-const dbFilePath: string = "./src/db.json";
+const getDbFilePath = () => path.join(__dirname, "db.json");
+
+// Ensure `db.json` exists in the application directory
+export const ensureDbFileExists = () => {
+  const dbFilePath = getDbFilePath();
+  if (!fs.existsSync(dbFilePath)) {
+    fs.writeFileSync(
+      dbFilePath,
+      JSON.stringify(
+        {
+          todos: [],
+          categories: [
+            {
+              id: 1,
+              name: "personal",
+            },
+          ],
+        },
+        null,
+        2
+      )
+    );
+  }
+};
 
 const readFromDB = (): DBFile => {
   try {
-    const data = fs.readFileSync(dbFilePath, "utf8");
+    const data = fs.readFileSync(getDbFilePath(), "utf8");
     return JSON.parse(data);
   } catch (err) {
     console.error(err);
@@ -14,9 +39,9 @@ const readFromDB = (): DBFile => {
   }
 };
 
-const writeToDB = (jsonData: DBFile): void => {
+export const writeToDB = (jsonData: DBFile): void => {
   try {
-    fs.writeFileSync(dbFilePath, JSON.stringify(jsonData, null, 2));
+    fs.writeFileSync(getDbFilePath(), JSON.stringify(jsonData, null, 2));
   } catch (err) {
     console.error(err);
   }
@@ -37,7 +62,7 @@ export const getCategories = (): Category[] => {
 
 export const addTodo = (newTodo: Todo): void => {
   const db = readFromDB();
-  newTodo.id = db.todos.length;
+  newTodo.id = db.todos.length + 1;
   db.todos.push(newTodo);
   writeToDB(db);
 };
@@ -59,6 +84,6 @@ export const completeTodo = (taskId: number): void => {
   }
 
   todoToUpdate.completed = true;
-  todoToUpdate.completedAt = new Date();
+  todoToUpdate.completedAt = date();
   writeToDB(db);
 };

@@ -4,19 +4,35 @@ import { addTodo, getCategories, getTodos } from "../dbRepository";
 import color from "@colors/colors";
 import * as p from "@clack/prompts";
 import { getTodosTable } from "../ui";
+import { date, validateTask } from "../utils";
 
 export const addCommand = program
   .command("add")
   .description("Add new todo")
-  .option("-t, --task <name>", "task description")
-  .option("-c, --category <category>", "category type", "personal")
+  .option("-t, --task <string>", "task description")
+  .option("-c, --category <string>", "category type", "personal")
   .action(async (options) => {
     if (options.task && options.category) {
+      const error = validateTask(options.task);
+      if (typeof error === "string") {
+        console.log(color.red(error));
+        process.exit(0);
+      }
+
+      if (
+        !getCategories()
+          .map((c) => c.name.toLowerCase())
+          .includes(options.category)
+      ) {
+        console.log(color.red(`There is no category as ${options.category}`));
+        process.exit(0);
+      }
+
       const newTodo: Todo = {
         id: null,
         task: options.task,
         category: options.category,
-        createdAt: new Date(),
+        createdAt: date(),
         completedAt: null,
         completed: false,
       };
@@ -35,11 +51,7 @@ export const addCommand = program
             p.text({
               message: "What are you planning?",
               placeholder: "Go get milk",
-              validate: (value) => {
-                if (!value) return "Please enter a task name.";
-                if (value.length < 3)
-                  return "Task name should be at least 3 characters";
-              },
+              validate: (value) => validateTask(value),
             }),
           category: () =>
             p.select({
@@ -63,7 +75,7 @@ export const addCommand = program
         id: null,
         task: todo.task,
         category: todo.category,
-        createdAt: new Date(),
+        createdAt: date(),
         completedAt: null,
         completed: false,
       };

@@ -6,8 +6,8 @@ import { getTodosTable } from "../ui";
 export const filterCommand = program
   .command("filter")
   .description("Filter todo's")
-  .option("-t, --task <name>", "Filter by task name")
-  .option("-c, --category <category>", "Filter by category")
+  .option("-t, --task <string>", "Filter by task name")
+  .option("-c, --category <string>", "Filter by category")
   .option("-d, --done <boolean>", "Filter by it's status")
   .action((options) => {
     const filters: ((todo: Todo) => boolean)[] = [];
