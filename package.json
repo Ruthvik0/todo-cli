@@ -4,7 +4,7 @@
   "description": "CLI application for TODO's",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build && node ./dist/index.js filter -h",
+    "dev": "npm run build && node ./dist/index.js delete",
     "build": "tsc"
   },
   "keywords": [],

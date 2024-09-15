@@ -14,6 +14,7 @@ export const addCommand = program
   .action(async (options) => {
     if (options.task && options.category) {
       const newTodo: Todo = {
+        id: null,
         task: options.task,
         category: options.category,
         createdAt: new Date(),
@@ -61,6 +62,7 @@ export const addCommand = program
       );
 
       const newTodo: Todo = {
+        id: null,
         task: todo.task,
         category: todo.category,
         createdAt: new Date(),

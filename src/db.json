@@ -1,6 +1,7 @@
 {
   "todos": [
     {
+      "id": 1,
       "task": "Go To run",
       "createdAt": "12-12-2007",
       "completedAt": "12-12-2008",
@@ -8,6 +9,7 @@
       "completed": true
     },
     {
+      "id": 2,
       "task": "To go to market",
       "category": "personal",
       "createdAt": "2024-09-13T10:37:05.918Z",
@@ -15,23 +17,10 @@
       "completed": false
     },
     {
-      "task": "Go to mall",
-      "category": "immediate",
-      "createdAt": "2024-09-14T08:06:57.819Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "go get milk",
+      "id": 3,
+      "task": "To go to school",
       "category": "personal",
-      "createdAt": "2024-09-14T08:42:17.137Z",
-      "completedAt": null,
-      "completed": false
-    },
-    {
-      "task": "Go run",
-      "category": "work",
-      "createdAt": "2024-09-14T08:44:03.241Z",
+      "createdAt": "2024-09-13T10:37:05.918Z",
       "completedAt": null,
       "completed": false
     }

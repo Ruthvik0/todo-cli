@@ -9,9 +9,9 @@ export const getTodosTable = (todos: Todo[]): string => {
       ),
     });
   
-    todos.forEach((todo, index) => {
+    todos.forEach((todo) => {
       const row = [
-        index + "",
+        todo.id + "",
         todo.task,
         todo.category,
         todo.createdAt.toString(),

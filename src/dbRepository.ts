@@ -38,12 +38,13 @@ export const getCategories = (): Category[] => {
 
 export const addTodo = (newTodo: Todo): void => {
   const db = readFromDB();
+  newTodo.id = db.todos.length
   db.todos.push(newTodo);
   writeToDB(db);
 };
 
-export const deleteTodo = (taskId: string): void => {
+export const deleteTodo = (taskId: number): void => {
   const db = readFromDB();
-  db.todos = db.todos.filter(todo => todo.task !== taskId);
+  db.todos = db.todos.filter(todo => todo.id !== taskId);
   writeToDB(db);
 };
