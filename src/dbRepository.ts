@@ -3,12 +3,21 @@ import { Category, DBFile, Todo, TodoPredicate } from "./types";
 import color from "@colors/colors";
 import { date } from "./utils";
 import path from "node:path";
+import os from "node:os";
 
-const getDbFilePath = () => path.join(__dirname, "db.json");
+const userHome = os.homedir();
+
+const getDbFilePath = () => path.join(userHome, "todo-cli", "db.json");
 
 // Ensure `db.json` exists in the application directory
 export const ensureDbFileExists = () => {
   const dbFilePath = getDbFilePath();
+  const dir = path.dirname(dbFilePath);
+
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
   if (!fs.existsSync(dbFilePath)) {
     fs.writeFileSync(
       dbFilePath,

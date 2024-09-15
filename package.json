@@ -2,8 +2,8 @@
   "name": "todo-cli",
   "version": "1.0.0",
   "description": "CLI application for TODO's",
-  "main": "dist/index.js",
-  "bin": "dist/index.js",
+  "main": "./dist/index.js",
+  "bin": "./dist/index.js",
   "scripts": {
     "dev": "npm run build && node ./dist/index.js",
     "build": "tsc",
@@ -17,16 +17,20 @@
     "@colors/colors": "^1.6.0",
     "cli-table3": "^0.6.5",
     "commander": "^12.1.0",
-    "dayjs": "^1.11.13",
-    "typescript": "^5.6.2"
+    "dayjs": "^1.11.13"
   },
   "devDependencies": {
-    "@types/node": "^22.5.4"
+    "@types/node": "^22.5.4",
+    "pkg": "^5.8.1",
+    "typescript": "^5.6.2"
   },
   "pkg": {
     "targets": [
       "node14-win-x64"
     ],
-    "output": "build/todo"
+    "output": "./build/todo",
+    "assets": [
+      "./dist/db.json"
+    ]
   }
 }

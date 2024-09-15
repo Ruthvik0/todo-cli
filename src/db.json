@@ -1,33 +1,8 @@
 {
-  "todos": [
-    {
-      "id": 1,
-      "task": "Go To run",
-      "createdAt": "12-12-2007",
-      "completedAt": "15-09-2024 19:21",
-      "category": "personal",
-      "completed": true
-    },
-    {
-      "id": 2,
-      "task": "Wassup boys",
-      "category": "personal",
-      "createdAt": "15-09-2024 19:21",
-      "completedAt": "15-09-2024 19:23",
-      "completed": true
-    }
-  ],
+  "todos": [],
   "categories": [
     {
       "id": 1,
-      "name": "work"
-    },
-    {
-      "id": 2,
-      "name": "immediate"
-    },
-    {
-      "id": 3,
       "name": "personal"
     }
   ]
