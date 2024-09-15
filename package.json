@@ -4,7 +4,7 @@
   "description": "CLI application for TODO's",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build && node ./dist/index.js delete",
+    "dev": "npm run build && node ./dist/index.js complete",
     "build": "tsc"
   },
   "keywords": [],
@@ -15,7 +15,6 @@
     "@colors/colors": "^1.6.0",
     "cli-table3": "^0.6.5",
     "commander": "^12.1.0",
-    "picocolors": "^1.1.0",
     "typescript": "^5.6.2"
   },
   "devDependencies": {

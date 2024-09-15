@@ -1,7 +1,6 @@
-// dbRepository.ts
-
-import fs from 'node:fs';
-import { Category, DBFile, Todo, TodoPredicate } from './types';
+import fs from "node:fs";
+import { Category, DBFile, Todo, TodoPredicate } from "./types";
+import color from "@colors/colors";
 
 const dbFilePath: string = "./src/db.json";
 
@@ -11,7 +10,7 @@ const readFromDB = (): DBFile => {
     return JSON.parse(data);
   } catch (err) {
     console.error(err);
-    return { todos: [], categories: [] }; // Return empty data on error
+    return { todos: [], categories: [] };
   }
 };
 
@@ -25,26 +24,41 @@ const writeToDB = (jsonData: DBFile): void => {
 
 export const getTodos = (predicate?: TodoPredicate): Todo[] => {
   const db = readFromDB();
-  if(predicate){
-    return db.todos.filter(predicate)
+  if (predicate) {
+    return db.todos.filter(predicate);
   }
   return db.todos;
 };
 
 export const getCategories = (): Category[] => {
-    const db = readFromDB();
-    return db.categories;
-  };
+  const db = readFromDB();
+  return db.categories;
+};
 
 export const addTodo = (newTodo: Todo): void => {
   const db = readFromDB();
-  newTodo.id = db.todos.length
+  newTodo.id = db.todos.length;
   db.todos.push(newTodo);
   writeToDB(db);
 };
 
 export const deleteTodo = (taskId: number): void => {
   const db = readFromDB();
-  db.todos = db.todos.filter(todo => todo.id !== taskId);
+  db.todos = db.todos.filter((todo) => todo.id !== taskId);
+  writeToDB(db);
+};
+
+export const completeTodo = (taskId: number): void => {
+  const db = readFromDB();
+
+  const todoToUpdate = db.todos.find((todo) => todo.id === taskId);
+
+  if (!todoToUpdate) {
+    console.log(color.red(`Todo with ID ${taskId} not found.`));
+    process.exit(0);
+  }
+
+  todoToUpdate.completed = true;
+  todoToUpdate.completedAt = new Date();
   writeToDB(db);
 };

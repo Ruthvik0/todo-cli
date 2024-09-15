@@ -4,6 +4,7 @@ import { getTodosTable } from "./ui";
 import { addCommand } from "./commands/add";
 import { filterCommand } from "./commands/filter";
 import { deleteCommand } from "./commands/delete";
+import { completeCommand } from "./commands/complete";
 
 const program = new Command("Todo");
 
@@ -17,5 +18,6 @@ program
 program.addCommand(addCommand)
 program.addCommand(filterCommand)
 program.addCommand(deleteCommand)
+program.addCommand(completeCommand)
 
 program.parse(process.argv);
