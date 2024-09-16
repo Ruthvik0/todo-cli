@@ -1,8 +1,8 @@
-import color from "@colors/colors";
 import { program } from "commander";
 import { completeTodo, getTodos } from "../dbRepository";
 import { getTodosTable } from "../ui";
-import * as p from "@clack/prompts";
+import { bgCyan, black, green, red } from "@colors/colors";
+import { intro, outro, multiselect } from "@clack/prompts";
 
 export const completeCommand = program
   .command("complete")
@@ -13,7 +13,7 @@ export const completeCommand = program
       const ids: number[] = options.id.map((value: string) => {
         const numberValue = Number(value);
         if (isNaN(numberValue)) {
-          console.log(color.red(`Invalid ID: ${options.id} is not a number.`));
+          console.log(red(`Invalid ID: ${options.id} is not a number.`));
           process.exit(0);
         }
         return numberValue;
@@ -23,7 +23,7 @@ export const completeCommand = program
     } else {
       console.clear();
 
-      p.intro(`${color.bgCyan(color.black("Complete todos"))}`);
+      intro(`${bgCyan(black("Complete todos"))}`);
       const choices = getTodos((todo) => todo.completed === false).map(
         (todo) => ({
           value: todo.id,
@@ -32,13 +32,13 @@ export const completeCommand = program
       );
 
       if (choices.length === 0) {
-        p.outro(
-          color.green("Wow! You deserve a break \n   All todos are completed")
+        outro(
+          green("Wow! You deserve a break \n   All todos are completed")
         );
         process.exit(0);
       }
 
-      const selectedIds = await p.multiselect({
+      const selectedIds = await multiselect({
         message: "Select todos to mark as done",
         options: choices,
       });
@@ -49,7 +49,7 @@ export const completeCommand = program
         .map((value) => Number.parseInt(value));
       ids.forEach((index) => completeTodo(index));
 
-      p.outro(color.green("Todo's Updated Successfully"));
+      outro(green("Todo's Updated Successfully"));
       console.log(getTodosTable(getTodos()));
     }
   });

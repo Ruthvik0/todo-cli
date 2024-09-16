@@ -1,8 +1,8 @@
-import color from "@colors/colors";
 import { program } from "commander";
 import { deleteTodo, getTodos } from "../dbRepository";
 import { getTodosTable } from "../ui";
-import * as p from "@clack/prompts";
+import { bgCyan, black, green, red } from "@colors/colors";
+import { intro, outro, multiselect } from "@clack/prompts";
 
 export const deleteCommand = program
   .command("delete")
@@ -13,7 +13,7 @@ export const deleteCommand = program
       const ids: number[] = options.id.map((value: string) => {
         const numberValue = Number(value);
         if (isNaN(numberValue)) {
-          console.log(color.red(`Invalid ID: ${value} is not a number.`));
+          console.log(red(`Invalid ID: ${value} is not a number.`));
           process.exit(0);
         }
         return numberValue;
@@ -23,18 +23,18 @@ export const deleteCommand = program
     } else {
       console.clear();
 
-      p.intro(`${color.bgCyan(color.black("Delete todos"))}`);
+      intro(`${bgCyan(black("Delete todos"))}`);
       const choices = getTodos().map((todo) => ({
         value: todo.id,
         label: todo.task,
       }));
 
       if (choices.length === 0) {
-        console.log(color.red("There are no todos"));
+        console.log(red("There are no todos"));
         process.exit(0);
       }
 
-      const selectedIds = await p.multiselect({
+      const selectedIds = await multiselect({
         message: "Select todos to delete",
         options: choices,
       });
@@ -45,7 +45,7 @@ export const deleteCommand = program
         .map((value) => Number.parseInt(value));
       ids.forEach((index) => deleteTodo(index));
 
-      p.outro(color.green("Todo's Deleted Successfully"));
+      outro(green("Todo's Deleted Successfully"));
       console.log(getTodosTable(getTodos()));
     }
   });

@@ -1,8 +1,8 @@
 import { program } from "commander";
 import { Todo } from "../types";
 import { addTodo, getCategories, getTodos } from "../dbRepository";
-import color from "@colors/colors";
-import * as p from "@clack/prompts";
+import { bgCyan, black, green, red } from "@colors/colors";
+import { cancel, intro, outro, select, text, group } from "@clack/prompts";
 import { getTodosTable } from "../ui";
 import { date, validateTask } from "../utils";
 
@@ -15,7 +15,7 @@ export const addCommand = program
     if (options.task && options.category) {
       const error = validateTask(options.task);
       if (typeof error === "string") {
-        console.log(color.red(error));
+        console.log(red(error));
         process.exit(0);
       }
 
@@ -24,7 +24,7 @@ export const addCommand = program
           .map((c) => c.name.toLowerCase())
           .includes(options.category)
       ) {
-        console.log(color.red(`There is no category as ${options.category}`));
+        console.log(red(`There is no category as ${options.category}`));
         process.exit(0);
       }
 
@@ -38,23 +38,23 @@ export const addCommand = program
       };
       addTodo(newTodo);
 
-      console.log(color.green("Todo Added Successfully"));
+      console.log(green("Todo Added Successfully"));
       console.log(getTodosTable(getTodos()));
     } else {
       console.clear();
 
-      p.intro(`${color.bgCyan(color.black("Add new todo"))}`);
+      intro(`${bgCyan(black("Add new todo"))}`);
 
-      const todo = await p.group(
+      const todo = await group(
         {
           task: () =>
-            p.text({
+            text({
               message: "What are you planning?",
               placeholder: "Go get milk",
               validate: (value) => validateTask(value),
             }),
           category: () =>
-            p.select({
+            select({
               message: "What would be the category?",
               initialValue: "personal",
               options: getCategories().map((c) => ({
@@ -65,7 +65,7 @@ export const addCommand = program
         },
         {
           onCancel: () => {
-            p.cancel("Operation cancelled.");
+            cancel("Operation cancelled.");
             process.exit(0);
           },
         }
@@ -82,7 +82,7 @@ export const addCommand = program
 
       addTodo(newTodo);
 
-      p.outro(color.green("Todo Added Successfully"));
+      outro(green("Todo Added Successfully"));
       console.log(getTodosTable(getTodos()));
     }
   });

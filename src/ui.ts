@@ -1,11 +1,11 @@
 import { Todo } from "./types";
 import cliTable from "cli-table3";
-import color from "@colors/colors";
+import {cyan, green, strikethrough} from "@colors/colors";
 
 export const getTodosTable = (todos: Todo[]): string => {
   const table = new cliTable({
     head: ["Id", "Task", "Category", "CreatedAt", "CompletedAt"].map((header) =>
-      color.cyan(header)
+      cyan(header)
     ),
   });
 
@@ -18,8 +18,8 @@ export const getTodosTable = (todos: Todo[]): string => {
       todo.completedAt ? todo.completedAt.toString() : "",
     ];
     if (todo.completed) {
-      row[1] = color.strikethrough(row[1]);
-      table.push(row.map((cell) => color.green(cell)));
+      row[1] = strikethrough(row[1]);
+      table.push(row.map((cell) => green(cell)));
     } else {
       table.push(row);
     }

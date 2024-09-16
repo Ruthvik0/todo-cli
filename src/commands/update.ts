@@ -1,9 +1,17 @@
-import color from "@colors/colors";
 import { program } from "commander";
 import { getTodos, writeToDB, getCategories } from "../dbRepository";
 import { getTodosTable } from "../ui";
-import * as p from "@clack/prompts";
 import { date, validateTask } from "../utils";
+import { bgCyan, black, green, red } from "@colors/colors";
+import {
+  cancel,
+  intro,
+  outro,
+  select,
+  text,
+  group,
+  confirm,
+} from "@clack/prompts";
 
 export const updateCommand = program
   .command("update")
@@ -17,18 +25,18 @@ export const updateCommand = program
       const { id, name, category, completed } = options;
 
       if (!id || !name) {
-        console.log(color.red("ID & name is required to update a todo."));
+        console.log(red("ID & name is required to update a todo."));
         process.exit(0);
       }
 
       const error = validateTask(name);
-      if (typeof error === 'string') {
-        console.log(color.red(error));
+      if (typeof error === "string") {
+        console.log(red(error));
         process.exit(0);
       }
       const idNumber: number = Number(id);
       if (isNaN(idNumber)) {
-        console.log(color.red(`Invalid ID: ${id} is not a number.`));
+        console.log(red(`Invalid ID: ${id} is not a number.`));
         process.exit(0);
       }
 
@@ -38,7 +46,7 @@ export const updateCommand = program
       const todoIndex = todos.findIndex((todo) => todo.id === idNumber);
 
       if (todoIndex === -1) {
-        console.log(color.red(`Todo with ID ${idNumber} not found.`));
+        console.log(red(`Todo with ID ${idNumber} not found.`));
         process.exit(0);
       }
 
@@ -51,7 +59,7 @@ export const updateCommand = program
       if (category) {
         const categories = getCategories().map((c) => c.name.toLowerCase());
         if (!categories.includes(category.toLowerCase())) {
-          console.log(color.red(`Category '${category}' does not exist.`));
+          console.log(red(`Category '${category}' does not exist.`));
           process.exit(0);
         }
         todoToUpdate.category = category;
@@ -70,12 +78,12 @@ export const updateCommand = program
       // Save the updated todo list
       writeToDB({ todos, categories: getCategories() });
 
-      console.log(color.green("Todo updated successfully"));
+      console.log(green("Todo updated successfully"));
       console.log(getTodosTable(todos));
     } else {
       console.clear();
 
-      p.intro(`${color.bgCyan(color.black("Update a todo"))}`);
+      intro(`${bgCyan(black("Update a todo"))}`);
 
       // Step 1: Select the todo to update
       const todos = getTodos();
@@ -85,11 +93,11 @@ export const updateCommand = program
       }));
 
       if (choices.length === 0) {
-        p.outro(color.red("There are no todos available for update."));
+        outro(red("There are no todos available for update."));
         process.exit(0);
       }
 
-      const selectedId = await p.select({
+      const selectedId = await select({
         message: "Select the todo to update",
         options: choices,
       });
@@ -97,16 +105,16 @@ export const updateCommand = program
       const todoToUpdate = getTodos((todo) => todo.id === selectedId)[0];
       const updatedTodo = { ...todoToUpdate };
 
-      const updateFields = await p.group(
+      const updateFields = await group(
         {
           name: () =>
-            p.text({
+            text({
               message: `New task name (previously "${todoToUpdate.task}")`,
               initialValue: todoToUpdate.task,
               validate: (value) => validateTask(value),
             }),
           category: () =>
-            p.select({
+            select({
               message: `New category (previously "${todoToUpdate.category}")`,
               initialValue: todoToUpdate?.category,
               options: getCategories().map((c) => ({
@@ -115,7 +123,7 @@ export const updateCommand = program
               })),
             }),
           completed: () =>
-            p.confirm({
+            confirm({
               message: `Mark as completed? (currently ${
                 todoToUpdate.completed ? "completed" : "not completed"
               })`,
@@ -124,7 +132,7 @@ export const updateCommand = program
         },
         {
           onCancel: () => {
-            p.cancel("Operation cancelled.");
+            cancel("Operation cancelled.");
             process.exit(0);
           },
         }
@@ -141,7 +149,7 @@ export const updateCommand = program
       );
       writeToDB({ todos: updatedTodos, categories: getCategories() });
 
-      p.outro(color.green("Todo updated successfully"));
+      outro(green("Todo updated successfully"));
       console.log(getTodosTable(updatedTodos));
     }
   });
